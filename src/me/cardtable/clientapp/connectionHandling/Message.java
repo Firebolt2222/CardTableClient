@@ -1,4 +1,4 @@
-package sample.connectionHandling;
+package me.cardtable.clientapp.connectionHandling;
 
 public class Message {
 

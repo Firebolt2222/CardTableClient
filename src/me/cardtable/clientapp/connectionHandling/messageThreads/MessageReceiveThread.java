@@ -1,8 +1,8 @@
-package sample.connectionHandling.messageThreads;
+package me.cardtable.clientapp.connectionHandling.messageThreads;
 
 
 
-import sample.connectionHandling.Message;
+import me.cardtable.clientapp.connectionHandling.Message;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

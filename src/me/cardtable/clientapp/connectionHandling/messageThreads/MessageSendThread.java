@@ -1,25 +1,28 @@
-package sample.connectionHandling.messageThreads;
+package me.cardtable.clientapp.connectionHandling.messageThreads;
 
 
+
+import me.cardtable.clientapp.connectionHandling.Message;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Random;
 
 public class MessageSendThread extends Thread {
 
     Socket client;
     int rndn;
-    byte[] message;
+    Message msg;
 
 
     public MessageSendThread(Socket client) {
         this.client = client;
         Random rd=new Random();
         rndn=rd.nextInt(100);
-        message=null;
+        msg=null;
     }
 
     @Override
@@ -36,19 +39,15 @@ public class MessageSendThread extends Thread {
                     message[i]=(byte) rd.nextInt(200);
                 }
                 */
-                message=new byte[]{4,3,2,1};
-                try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
+                if(msg!=null){
+                    //dataOutputStream.writeUTF("Hallo");
+                    System.out.println(Arrays.toString(msg.message));
+                    dataOutputStream.write(msg.message);
+                    //System.out.println("Sending:");
+                    //msg.readMessage();
+                    msg=null;
                 }
-                /*
-                if(message!=null){
-                    dataOutputStream.write(3);
-                    System.out.println("Sending "+3);
-                    message=null;
-                }*/
-                //dataOutputStream.writeUTF("Hallo Server, ich bin Client "+a);
             }
             dataInputStream.close();
             dataOutputStream.close();
@@ -58,8 +57,8 @@ public class MessageSendThread extends Thread {
         super.run();
     }
 
-    public void setMessage(byte[] message) {
-        this.message = message;
+    public void setMessage(Message msg) {
+        this.msg =msg;
     }
 
 }
